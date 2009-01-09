@@ -1,0 +1,40 @@
+h3. Modified NavAdd
+
+This is a modified version of the NavAddPlugin for Trac:
+
+<a href="http://trac-hacks.org/wiki/NavAddPlugin">http://trac-hacks.org/wiki/NavAddPlugin</a>
+
+I added support for a notperm config option to allow you to add or hide nav plugins based on a permission that the user doesn't have.
+
+
+h3. Install
+
+@sudo python setup.py install@
+
+Add this to your @trac.ini@ file
+
+<pre>
+[components]
+navadd.* = enabled
+</pre>
+
+h3. Example
+
+This example will show a Login link in the user has the @WIKI_VIEW@ permission but doesn't have the @TICKET_CREATE@ permission.
+
+Then it will add a Logout link if the user has the @TICKET_CREATE@ permission.
+
+<pre>
+[navadd]
+add_items = login, logout
+login.title = Login
+login.url = /sso/catch.php
+login.perm = WIKI_VIEW
+login.target = mainnav
+login.notperm = TICKET_CREATE
+
+logout.title = Logout
+logout.url = /sso/catch.php
+logout.perm = TICKET_CREATE
+logout.target = mainnav
+</pre>
